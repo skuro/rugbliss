@@ -8,15 +8,15 @@
              IvParameterSpec])
   (:use rugbliss.config))
 
-(def api-keys (:api-key config))
+(def api-keys (:api-keys config))
 
 (def aes-cipher
   (let [aes-keygen (doto
                        (KeyGenerator/getInstance "AES")
                      (.init 128))
-        aes-keyspec (SecretKeySpec. (:key api-keys)
+        aes-keyspec (SecretKeySpec. (.getBytes (:key api-keys))
                                     "AES")
-        aes-ivspec (IvParameterSpec. (:iv api-keys))]
+        aes-ivspec (IvParameterSpec. (.getBytes (:iv api-keys)))]
     (doto
         (Cipher/getInstance "AES/CBC/NoPadding")
       (.init Cipher/ENCRYPT_MODE aes-keyspec aes-ivspec))))
