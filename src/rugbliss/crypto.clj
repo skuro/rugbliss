@@ -5,13 +5,10 @@
             [javax.crypto KeyGenerator
              Cipher]
             [javax.crypto.spec SecretKeySpec
-             IvParameterSpec]))
+             IvParameterSpec])
+  (:use rugbliss.config))
 
-(def api-keys
-  {:access-key "m=120688&mk=45d1b598fcc654b317556171f490b989309bae9d"
-   :id         "662"
-   :key        (.getBytes "cu7ilqF3NvHT7gqz")
-   :iv         (.getBytes "gVZOQ1RSlN2w5xpI")})
+(def api-keys (:api-key config))
 
 (def aes-cipher
   (let [aes-keygen (doto
